@@ -1,0 +1,23 @@
+{
+    "name": "skyway-python-client",
+    "version": "0.0.1",
+    "description": "",
+    "main": "main.js",
+    "source": "index.html",
+    "scripts": {
+        "start": "parcel",
+        "build": "parcel build"
+    },
+    "author": "sublimer <sublimer.me@gmail.com> (https://sublimer.me/)",
+    "license": "MIT",
+    "devDependencies": {
+        "@types/node": "^20.3.2",
+        "buffer": "^6.0.3",
+        "parcel": "^2.9.3",
+        "typescript": "^5.1.6"
+    },
+    "dependencies": {
+        "@skyway-sdk/core": "^1.4.1",
+        "@skyway-sdk/sfu-bot": "^1.4.1"
+    }
+}
