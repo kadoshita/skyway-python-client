@@ -6,6 +6,7 @@ from pygments.formatters import TerminalFormatter
 
 API_URL = "https://sfu.skyway.ntt.com/v3"
 
+
 def print_json(data):
     formatted_data = json.dumps(data, indent=2)
     print(highlight(formatted_data, JsonLexer(), TerminalFormatter()))
@@ -56,7 +57,40 @@ class SfuApiClient:
             return data
 
     async def connect(self, transport_id, dtls_parameters):
-        pass
+        async with self.session.put(
+            API_URL + "/transport/connection",
+            json={
+                "transportId": transport_id,
+                "dtlsParameters": dtls_parameters,
+            },
+            headers={
+                "Authorization": "Bearer " + self.token,
+                "Content-Type": "application/json",
+            },
+        ) as response:
+            data = await response.json()
+            print_json(data)
+            return data
 
-    async def create_producer(self, transport_id, producer_options):
-        pass
+    async def create_producer(
+        self, bot_id, broadcaster_transport_id, transport_id, producer_options
+    ):
+        async with self.session.put(
+            API_URL
+            + "/bots/"
+            + bot_id
+            + "/forwardings/"
+            + transport_id
+            + "/transport/producer",
+            json={
+                "transportId": broadcaster_transport_id,
+                "producerOptions": producer_options,
+            },
+            headers={
+                "Authorization": "Bearer " + self.token,
+                "Content-Type": "application/json",
+            },
+        ) as response:
+            data = await response.json()
+            print_json(data)
+            return data

@@ -12,6 +12,7 @@
 <body>
 
     <div>
+        <button id="start-button">Start</button>
         <button id="create-channel-button">Create Channel</button>
         <label for="channel-id-text">
             Channel ID:
@@ -21,6 +22,11 @@
         <button id="join-channel-button">Join Channel</button>
         <button id="publish-media-button">Publish Media</button>
         <button id="create-bot-button">Create Bot</button>
+        <label for="bot-id-text">
+            Bot ID:
+            <input type="text" id="bot-id-text" />
+        </label>
+        <button id="delete-bot-button">Delete Bot</button>
         <button id="forwarding-media-button">Forwarding Media</button>
         <button id="get-all-publications-button">Get all Publications</button>
         <label for="publication-id-text">
@@ -28,7 +34,22 @@
             <input type="text" id="publication-id-text" />
         </label>
         <button id="subscribe-media-button">Subscribe Media</button>
+        <button id="subscribe-high-button">Subscribe High</button>
+        <button id="subscribe-mid-button">Subscribe Mid</button>
+        <button id="subscribe-low-button">Subscribe Low</button>
         <button id="terminate-button">Terminate</button>
+        <label for="channel-name-text">
+            Channel Name:
+            <input type="text" id="channel-name-text" />
+        </label>
+        <div>
+            <textarea id="token-channel-scope-text" rows="30" cols="80">
+            </textarea>
+        </div>
+        <button id="update-token-button">Update Token</button>
+    </div>
+    <div>
+        <video id="remote-video" muted autoplay playsinline></video>
     </div>
 </body>
 
