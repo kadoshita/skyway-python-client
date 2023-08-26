@@ -30,6 +30,12 @@ class RtcApiClient:
                 id = data["id"]
                 if id in self.events:
                     self.events[id](data)
+            if "params" in data:
+                if "type" in data["params"]:
+                    if data["params"]["type"] == "StreamSubscribed":
+                        if "origin" in data["params"]["data"]["publication"]:
+                            if "on_stream_subscribed" in self.events:
+                                await self.events["on_stream_subscribed"](data)
 
     async def __send_update_member_ttl(self, channel_id, member_id):
         await self.socket.send(
@@ -148,4 +154,17 @@ class RtcApiClient:
 
         await future
         del self.events[id]
+        return future.result()
+
+    async def on_stream_subscribed(self, callback):
+        future = asyncio.Future()
+
+        async def cb(data):
+            await callback(data)
+            future.set_result(data)
+
+        self.events["on_stream_subscribed"] = cb
+
+        await future
+        del self.events["on_stream_subscribed"]
         return future.result()

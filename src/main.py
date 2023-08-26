@@ -70,9 +70,9 @@ async def main():
         await asyncio.sleep(1)
 
         player = MediaPlayer(
-            "C922 Pro Stream Webcam",
+            "default:none",
             format="avfoundation",
-            options={"framerate": "30", "video_size": "640x480"},
+            options={"framerate": "30", "video_size": "1280x720"},
         )
         relay = MediaRelay()
         video_track = relay.subscribe(player.video)
@@ -88,7 +88,6 @@ async def main():
         forwarding = await sfu_api_client.start_forwarding(
             member_id, publication_id, bot_id, "Video", 1
         )
-        # print(forwarding)
 
         if "broadcasterTransportId" not in forwarding:
             raise Exception("broadcasterTransportId is not found")
@@ -111,15 +110,27 @@ async def main():
                 forwarding["broadcasterTransportOptions"]
             )
 
-        if "ackTransportOptions" in forwarding and "ackTransportId" in forwarding:
-            await mediasoup_client.create_recv_transport(
-                forwarding["ackTransportId"],
-                forwarding["ackTransportOptions"],
-            )
+        async def on_stream_subscribed_callback(data):
+            while True:
+                await asyncio.sleep(1)
+                response = await sfu_api_client.confirm_subscription(
+                    forwarding["forwardingId"],
+                    data["params"]["data"]["subscription"]["id"],
+                    forwarding["identifierKey"],
+                )
+                if (
+                    "message" in response
+                    and response["message"] == "IdentifierKey is invalid"
+                ):
+                    continue
+                else:
+                    break
+
+        await rtc_api_client.on_stream_subscribed(on_stream_subscribed_callback)
 
         await mediasoup_client.produce(video_track)
 
-        await asyncio.sleep(100)
+        await asyncio.sleep(3600)
 
 
 if __name__ == "__main__":

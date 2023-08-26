@@ -4,7 +4,7 @@ from pygments import highlight
 from pygments.lexers import JsonLexer
 from pygments.formatters import TerminalFormatter
 
-API_URL = "https://sfu.skyway.ntt.com/v3"
+API_URL = "https://sfu.skyway.ntt.com/v4"
 
 
 def print_json(data):
@@ -58,7 +58,7 @@ class SfuApiClient:
 
     async def connect(self, transport_id, dtls_parameters):
         async with self.session.put(
-            API_URL + "/transport/connection",
+            API_URL + "/transports/connections",
             json={
                 "transportId": transport_id,
                 "dtlsParameters": dtls_parameters,
@@ -81,10 +81,29 @@ class SfuApiClient:
             + bot_id
             + "/forwardings/"
             + transport_id
-            + "/transport/producer",
+            + "/transports/producers",
             json={
                 "transportId": broadcaster_transport_id,
                 "producerOptions": producer_options,
+            },
+            headers={
+                "Authorization": "Bearer " + self.token,
+                "Content-Type": "application/json",
+            },
+        ) as response:
+            data = await response.json()
+            print_json(data)
+            return data
+
+    async def confirm_subscription(
+        self, forwarding_id, subscription_id, identifier_key
+    ):
+        async with self.session.post(
+            API_URL + "/confirm-subscription",
+            json={
+                "forwardingId": forwarding_id,
+                "subscriptionId": subscription_id,
+                "identifierKey": identifier_key,
             },
             headers={
                 "Authorization": "Bearer " + self.token,
