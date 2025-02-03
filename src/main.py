@@ -51,10 +51,17 @@ async def main():
 
         await asyncio.sleep(1)
 
+        # send camera stream
+        # player = MediaPlayer(
+        #     "default:none",
+        #     format="avfoundation",
+        #     options={"framerate": "30", "video_size": "1280x720"},
+        # )
+
+        # send RTP stream
         player = MediaPlayer(
-            "default:none",
-            format="avfoundation",
-            options={"framerate": "30", "video_size": "1280x720"},
+            "video.sdp",
+            options={"protocol_whitelist": "file,udp,rtp", "fflags": "nobuffer"},
         )
         relay = MediaRelay()
         video_track = relay.subscribe(player.video)

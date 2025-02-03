@@ -73,6 +73,23 @@ $ uv run src/main.py
 channel_id: # Subscriber側で作成したChannel IDをペーストし、Enterを押す
 ```
 
+## RTPを受信してWebRTCに変換してSFUに送信する
+
+- main.pyのRTP送信用のコードを有効にする
+- UDP 5000にRTPでストリームを送信する
+  - 例
+    - gstreamerでサンプル映像を送る
+      ```shell
+      gst-launch-1.0 -v \
+         videotestsrc ! video/x-raw,framerate=30/1, width=640, height=360 ! \
+         timeoverlay ! \
+         videoconvert ! x264enc tune=zerolatency bitrate=800 speed-preset=superfast ! \
+         rtph264pay ! udpsink host=127.0.0.1 port=5000
+      ```
+    - ffmpegでファイルを送る
+      - `ffmpeg -re -i movie.mp4 -c:v libx264 -preset veryfast -r 30 -s 640x360 -an -f rtp rtp://127.0.0.1:5000`
+- 「Publisher側」の手順を実行する
+
 ## 動作環境
 
 - macOS Sonoma 14.6.1
