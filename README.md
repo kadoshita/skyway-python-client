@@ -34,24 +34,26 @@ SkyWayに接続するためのPythonのクライアント
 ### セットアップ
 
 ```shell
-$ git clone git@github.com:kadoshita/skyway-python-client.git
-$ cd skyway-python-client
-$ python -m venv .
-$ source bin/activate
-$ python -m pip install -r requirements.txt
-$ cp .env.example .env
-$ vi .env # SKYWAY_APP_IDとSKYWAY_SECRET_KEYを記述する
+git clone git@github.com:kadoshita/skyway-python-client.git
+cd skyway-python-client
+uv venv .venv
+source bin/activate
+uv sync
+cp .env.example .env
+vi .env # SKYWAY_APP_IDとSKYWAY_SECRET_KEYを記述する
 ```
 
 ### Subscriber側
 
 1. Webアプリケーションの起動
+
 ```shell
-$ cd skyway-python-client/public
-$ cp ../.env .
-$ npm install
-$ npm start
+cd skyway-python-client/public
+cp ../.env .
+npm install
+npm start
 ```
+
 2. Channelの作成
    1. [http://localhost:1234/](http://localhost:1234/)にアクセスする
    2. Startボタンをクリックする
@@ -67,14 +69,13 @@ $ npm start
 ### Publisher側
 
 ```shell
-$ cd skyway-python-client/src
-$ python main.py
+$ uv run src/main.py
 channel_id: # Subscriber側で作成したChannel IDをペーストし、Enterを押す
 ```
 
 ## 動作環境
 
-- macOS Ventura 13.5.1
+- macOS Sonoma 14.6.1
 - Python 3.10.2
-- pip 21.2.4
-- Node.js v18.3.0
+- uv 0.5.26
+- Node.js v20.10.0
