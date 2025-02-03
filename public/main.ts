@@ -22,42 +22,19 @@ const tokenObject: AuthToken = {
     jti: uuidV4(),
     iat: nowInSec(),
     exp: nowInSec() + 60 * 60 * 24,
+    version: 3,
     scope: {
-        app: {
-            id: appId,
-            turn: true,
-            actions: ["read"],
-            channels: [
-                {
-                    id: "*",
+        appId,
+        rooms: [
+            {
+                name: "*",
+                methods: ["create"],
+                member: {
                     name: "*",
-                    actions: ["write"],
-                    members: [
-                        {
-                            id: "*",
-                            name: "*",
-                            actions: ["write"],
-                            publication: {
-                                actions: ["write"],
-                            },
-                            subscription: {
-                                actions: ["write"],
-                            },
-                        },
-                    ],
-                    sfuBots: [
-                        {
-                            actions: ["write"],
-                            forwardings: [
-                                {
-                                    actions: ["write"],
-                                },
-                            ],
-                        },
-                    ],
+                    methods: ["subscribe"],
                 },
-            ],
-        },
+            },
+        ],
     },
 };
 
@@ -122,7 +99,7 @@ const tokenObject: AuthToken = {
         document.getElementById("token-channel-scope-text")
     );
     tokenChannelScopeText.value = JSON.stringify(
-        tokenObject.scope.app.channels,
+        tokenObject.scope.rooms,
         null,
         2
     );
@@ -151,13 +128,10 @@ const tokenObject: AuthToken = {
             jti: uuidV4(),
             iat: nowInSec(),
             exp: nowInSec() + 60 * 60 * 24,
+            version: 3,
             scope: {
-                app: {
-                    id: appId,
-                    turn: true,
-                    actions: ["read"],
-                    channels: JSON.parse(tokenChannelScopeText.value),
-                },
+                appId,
+                rooms: JSON.parse(tokenChannelScopeText.value),
             },
         }).encode(secretKey);
 
@@ -280,14 +254,8 @@ const tokenObject: AuthToken = {
             jti: uuidV4(),
             iat: nowInSec(),
             exp: nowInSec() + 60 * 60 * 24,
-            scope: {
-                app: {
-                    id: appId,
-                    turn: true,
-                    actions: ["read"],
-                    channels: JSON.parse(tokenChannelScopeText.value),
-                },
-            },
+            version: 3,
+            scope: { appId, rooms: JSON.parse(tokenChannelScopeText.value) },
         }).encode(secretKey);
         await context.updateAuthToken(token);
     });

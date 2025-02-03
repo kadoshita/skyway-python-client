@@ -17,34 +17,16 @@ token = jwt.encode(
         "jti": str(uuid.uuid4()),
         "iat": int(time.time()),
         "exp": int(time.time()) + 3600,
+        "version": 3,
         "scope": {
-            "app": {
-                "id": settings.APP_ID,
-                "turn": True,
-                "actions": ["read"],
-                "channels": [
-                    {
-                        "id": "*",
-                        "name": "*",
-                        "actions": ["write"],
-                        "members": [
-                            {
-                                "id": "*",
-                                "name": "*",
-                                "actions": ["write"],
-                                "publication": {"actions": ["write"]},
-                                "subscription": {"actions": ["write"]},
-                            }
-                        ],
-                        "sfuBots": [
-                            {
-                                "actions": ["write"],
-                                "forwardings": [{"actions": ["write"]}],
-                            }
-                        ],
-                    }
-                ],
-            }
+            "appId": settings.APP_ID,
+            "rooms": [
+                {
+                    "id": "*",
+                    "methods": [],
+                    "member": {"id": "*", "methods": ["publish"]},
+                }
+            ],
         },
     },
     settings.SECRET_KEY,
