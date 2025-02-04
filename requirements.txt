@@ -33,7 +33,7 @@ pymediasoup==0.2.2
 pyopenssl==23.2.0
 python-dotenv==1.0.0
 sdp-transform==1.0.6
-setuptools==58.1.0
+setuptools==70.0.0
 tomli==2.0.1
 typing-extensions==4.7.0
 websockets==11.0.3
