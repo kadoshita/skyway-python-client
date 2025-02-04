@@ -1,0 +1,42 @@
+name: CI Python
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Python ${{ matrix.python-version }} on ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version:
+          - '3.10'
+          - '3.11'
+          # - '3.12'
+          # - '3.13'
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv and Set up Python ${{ matrix.python-version }}
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install the project
+        run: uv sync --all-extras --dev
+      - name: Run main.py
+        timeout-minutes: 1
+        env:
+          SKYWAY_APP_ID: ${{ secrets.SKYWAY_APP_ID }}
+          SKYWAY_SECRET_KEY: ${{ secrets.SKYWAY_SECRET_KEY }}
+          DUMMY_CHANNEL_ID: 2b1da30d-f002-47eb-bf10-4a7036b88f39
+        run: echo "$DUMMY_CHANNEL_ID" | uv run src/main.py | grep -q "channel_id"
