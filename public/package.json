@@ -2,11 +2,9 @@
     "name": "skyway-python-client",
     "version": "0.0.1",
     "description": "",
-    "main": "main.js",
-    "source": "index.html",
     "scripts": {
         "start": "parcel",
-        "build": "parcel build"
+        "build": "parcel build --dist-dir dist --public-url ./ index.html"
     },
     "author": "sublimer <sublimer.me@gmail.com> (https://sublimer.me/)",
     "license": "MIT",
