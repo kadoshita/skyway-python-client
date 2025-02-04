@@ -1,0 +1,32 @@
+name: CI JavaScript
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.10.0'
+          cache: 'npm'
+          cache-dependency-path: public/package-lock.json
+      - name: Install dependencies
+        working-directory: ./public
+        run: npm install
+      - name: Build
+        working-directory: ./public
+        run: npm run build
