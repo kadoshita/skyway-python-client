@@ -16,7 +16,7 @@ google-crc32c==1.5.0
 h264-profile-level-id==1.0.0
 idna==3.7
 ifaddr==0.2.0
-multidict==6.0.4
+multidict==6.1.0
 mypy-extensions==1.0.0
 netifaces==0.11.0
 packaging==23.1
