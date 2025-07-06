@@ -1,5 +1,5 @@
 aiohttp==3.11.18
-aioice==0.9.0
+aioice==0.10.1
 aiortc==1.2.1
 aiosignal==1.3.2
 async-timeout==5.0.1
