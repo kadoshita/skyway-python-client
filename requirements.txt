@@ -1,4 +1,4 @@
-aiohttp==3.12.13
+aiohttp==3.12.14
 aioice==0.10.1
 aiortc==1.2.1
 aiosignal==1.3.2
