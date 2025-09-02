@@ -11,7 +11,7 @@ charset-normalizer==3.4.2
 click==8.2.1
 cryptography==44.0.2
 dnspython==2.7.0
-frozenlist==1.5.0
+frozenlist==1.7.0
 google-crc32c==1.5.0
 h264-profile-level-id==1.0.0
 idna==3.7
