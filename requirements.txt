@@ -9,7 +9,7 @@ black==25.1.0
 cffi==1.17.1
 charset-normalizer==3.4.3
 click==8.2.1
-cryptography==44.0.2
+cryptography==45.0.7
 dnspython==2.7.0
 frozenlist==1.7.0
 google-crc32c==1.5.0
