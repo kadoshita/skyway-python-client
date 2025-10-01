@@ -29,7 +29,7 @@ pyee==13.0.0
 pygments==2.19.1
 pyjwt==2.10.1
 pylibsrtp==0.12.0
-pymediasoup==0.2.2
+pymediasoup==1.2.1
 pyopenssl==23.2.0
 python-dotenv==1.0.0
 sdp-transform==1.1.0
