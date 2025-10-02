@@ -11,7 +11,7 @@
     "devDependencies": {
         "@types/node": "^24.3.0",
         "buffer": "^6.0.3",
-        "parcel": "^2.15.4",
+        "parcel": "^2.16.0",
         "typescript": "^5.9.2"
     },
     "dependencies": {
