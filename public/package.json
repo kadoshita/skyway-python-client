@@ -16,6 +16,6 @@
     },
     "dependencies": {
         "@skyway-sdk/core": "^2.0.0",
-        "@skyway-sdk/sfu-bot": "^1.14.3"
+        "@skyway-sdk/sfu-bot": "^2.0.0"
     }
 }
