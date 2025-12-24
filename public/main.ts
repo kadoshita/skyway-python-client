@@ -13,7 +13,7 @@ import {
     RemoteVideoStream,
     Subscription,
 } from "@skyway-sdk/core";
-import { SfuBotMember, SfuBotPlugin } from "@skyway-sdk/sfu-bot";
+import { SFUBotMember, SFUBotPlugin } from "@skyway-sdk/sfu-bot";
 
 const appId = process.env.SKYWAY_APP_ID ?? "";
 const secretKey = process.env.SKYWAY_SECRET_KEY ?? "";
