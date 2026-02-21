@@ -9,7 +9,7 @@
     "author": "sublimer <sublimer.me@gmail.com> (https://sublimer.me/)",
     "license": "MIT",
     "devDependencies": {
-        "@types/node": "^25.3.0",
+        "@types/node": "^20.19.33",
         "buffer": "^6.0.3",
         "parcel": "^2.16.4",
         "typescript": "^5.9.3"
