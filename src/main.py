@@ -15,8 +15,13 @@ logging.getLogger().setLevel(logging.INFO)
 # Enable websockets debug logging
 logging.getLogger('websockets').setLevel(logging.DEBUG)
 
+if not settings.APP_ID:
+    raise ValueError("SKYWAY_APP_ID environment variable is not set")
+
 if not settings.SECRET_KEY:
     raise ValueError("SKYWAY_SECRET_KEY environment variable is not set")
+
+logging.info(f"Using APP_ID: {settings.APP_ID}")
 
 token = jwt.encode(
     {
