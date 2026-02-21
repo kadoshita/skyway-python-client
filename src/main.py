@@ -2,8 +2,7 @@ import logging
 import settings
 import jwt
 import asyncio
-import websockets.client
-from websockets.typing import Subprotocol
+import websockets
 import uuid
 import time
 from rtc_api_client import RtcApiClient
@@ -37,11 +36,10 @@ token = jwt.encode(
     algorithm="HS256",
 )
 
-print("token:", token)
 
 async def main():
-    async with websockets.client.connect(
-        "wss://rtc-api.skyway.ntt.com:443/ws", subprotocols=[Subprotocol(token)]
+    async with websockets.connect(
+        "wss://rtc-api.skyway.ntt.com:443/ws", subprotocols=[token]
     ) as websocket:
         rtc_api_client = RtcApiClient(websocket, token, settings.APP_ID)
         sfu_api_client = SfuApiClient(token, settings.APP_ID)
