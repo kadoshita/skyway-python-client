@@ -37,6 +37,7 @@ token = jwt.encode(
     algorithm="HS256",
 )
 
+print("token:", token)
 
 async def main():
     async with websockets.client.connect(
