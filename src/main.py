@@ -2,7 +2,8 @@ import logging
 import settings
 import jwt
 import asyncio
-import websockets
+import websockets.client
+from websockets.typing import Subprotocol
 import uuid
 import time
 from rtc_api_client import RtcApiClient
@@ -11,6 +12,9 @@ from mediasoup_client import MediasoupClient
 from aiortc.contrib.media import MediaPlayer, MediaRelay
 
 logging.getLogger().setLevel(logging.INFO)
+
+if not settings.SECRET_KEY:
+    raise ValueError("SKYWAY_SECRET_KEY environment variable is not set")
 
 token = jwt.encode(
     {
@@ -35,8 +39,8 @@ token = jwt.encode(
 
 
 async def main():
-    async with websockets.connect(
-        "wss://rtc-api.skyway.ntt.com:443/ws", subprotocols=[token]
+    async with websockets.client.connect(
+        "wss://rtc-api.skyway.ntt.com:443/ws", subprotocols=[Subprotocol(token)]
     ) as websocket:
         rtc_api_client = RtcApiClient(websocket, token, settings.APP_ID)
         sfu_api_client = SfuApiClient(token, settings.APP_ID)
