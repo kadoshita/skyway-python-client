@@ -21,7 +21,7 @@ if not settings.APP_ID:
 if not settings.SECRET_KEY:
     raise ValueError("SKYWAY_SECRET_KEY environment variable is not set")
 
-logging.info(f"Using APP_ID: {settings.APP_ID}")
+logging.info(f"Using APP_ID: {settings.APP_ID[:8]}... (truncated for security)")
 
 token = jwt.encode(
     {
@@ -44,8 +44,7 @@ token = jwt.encode(
     algorithm="HS256",
 )
 
-logging.info(f"Generated JWT token (first 50 chars): {token[:50]}...")
-logging.info(f"Token length: {len(token)}")
+logging.info(f"JWT token generated successfully (length: {len(token)} chars)")
 
 
 async def main():
