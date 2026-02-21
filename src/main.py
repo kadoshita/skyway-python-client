@@ -49,7 +49,7 @@ logging.info(f"JWT token generated successfully (length: {len(token)} chars)")
 
 async def main():
     logging.info(f"Attempting to connect to wss://rtc-api.skyway.ntt.com:443/ws")
-    logging.info(f"Using subprotocols: [token]")
+    logging.info(f"Using subprotocols: [<JWT token>]")
     async with websockets.connect(
         "wss://rtc-api.skyway.ntt.com:443/ws", subprotocols=[token]
     ) as websocket:
