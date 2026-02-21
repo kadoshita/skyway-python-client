@@ -12,6 +12,9 @@ from aiortc.contrib.media import MediaPlayer, MediaRelay
 
 logging.getLogger().setLevel(logging.INFO)
 
+# Enable websockets debug logging
+logging.getLogger('websockets').setLevel(logging.DEBUG)
+
 if not settings.SECRET_KEY:
     raise ValueError("SKYWAY_SECRET_KEY environment variable is not set")
 
@@ -36,11 +39,18 @@ token = jwt.encode(
     algorithm="HS256",
 )
 
+logging.info(f"Generated JWT token (first 50 chars): {token[:50]}...")
+logging.info(f"Token length: {len(token)}")
+
 
 async def main():
+    logging.info(f"Attempting to connect to wss://rtc-api.skyway.ntt.com:443/ws")
+    logging.info(f"Using subprotocols: [token]")
     async with websockets.connect(
         "wss://rtc-api.skyway.ntt.com:443/ws", subprotocols=[token]
     ) as websocket:
+        logging.info(f"Successfully connected to WebSocket")
+        logging.info(f"Selected subprotocol: {websocket.subprotocol}")
         rtc_api_client = RtcApiClient(websocket, token, settings.APP_ID)
         sfu_api_client = SfuApiClient(token, settings.APP_ID)
         channel_id = input("channel_id: ")
