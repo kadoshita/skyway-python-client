@@ -9,13 +9,13 @@
     "author": "sublimer <sublimer.me@gmail.com> (https://sublimer.me/)",
     "license": "MIT",
     "devDependencies": {
-        "@types/node": "^20.19.37",
+        "@types/node": "^20.19.39",
         "buffer": "^6.0.3",
         "parcel": "^2.16.4",
-        "typescript": "^6.0.2"
+        "typescript": "^6.0.3"
     },
     "dependencies": {
-        "@skyway-sdk/core": "^2.4.2",
-        "@skyway-sdk/sfu-bot": "^2.2.2"
+        "@skyway-sdk/core": "^2.4.4",
+        "@skyway-sdk/sfu-bot": "^2.2.4"
     }
 }
