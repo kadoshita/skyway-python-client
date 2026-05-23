@@ -15,7 +15,7 @@
         "typescript": "^6.0.3"
     },
     "dependencies": {
-        "@skyway-sdk/core": "^2.4.4",
-        "@skyway-sdk/sfu-bot": "^2.2.4"
+        "@skyway-sdk/core": "^2.4.5",
+        "@skyway-sdk/sfu-bot": "^2.2.5"
     }
 }
